@@ -1,0 +1,195 @@
+:root {
+  font-family: Trebuchet MS, system-ui, Arial, sans-serif;
+  line-height: 25px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --text-color: #eee;
+  --negative-text-color: #222;
+  --dark-bkg: #000000;
+
+  --color-x-turn: rgb(194, 57, 57);
+  --color-o-turn: rgb(89, 89, 234);
+
+  --square-color: #424141;
+  --square-border-color: color-mix(in srgb, var(--square-color), white 5%);
+  --square-bg-color: color-mix(in srgb, var(--square-color), black 30%);
+
+  --square-second-color: #c807f8;
+  --square-second-border-color: color-mix(in srgb, var(--square-second-color), white 5%);
+  --square-second-bg-color: color-mix(in srgb, var(--square-second-color), #242424 85%);
+
+  --square-selected: color-mix(in srgb, var(--square-color), black 5%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.board {
+  width: fit-content;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.board button {
+  padding: 8px 12px;
+  margin: 30px auto;
+  background: transparent;
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  width: fit-content;
+  font-weight: bold;
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--text-color);
+    color: var(--negative-text-color);
+  }
+}
+
+.board .game {
+  display: grid;
+  grid-template-columns: repeat(var(--size), 1fr);
+  grid-template-rows: repeat(var(--size), 1fr);
+  gap: 10px;
+}
+
+.turn {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 15px auto;
+  width: fit-content;
+  position: relative;
+}
+
+.turn .square,
+.winner .square {
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  /*quita efectos y acciones de mouse
+  */
+  border: transparent;
+  background-color: transparent;
+}
+
+.square.is-selected {
+  border: 1px solid var(--square-second-border-color);
+  background-color: var(--square-second-bg-color);
+}
+
+.square.is-disabled {
+  pointer-events: none;
+}
+
+.winner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--dark-bkg);
+}
+
+.winner .text {
+  background: rgba(159, 159, 159, 0.14);
+  height: 300px;
+  width: 270px;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.win {
+  width: fit-content;
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid var(--text-color);
+}
+
+.tie {
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background-color: var(--square-bg-color);
+  border: 1px solid var(--square-border-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--square-selected);
+  }
+}
+
+.game .square {
+  &.x-turn {
+    background-color: var(--color-x-turn);
+    box-shadow: 0 0 3px black inset;
+    /* transition: background-color 0.4s ease; */
+    animation: dropColor .5s ease-in;
+  }
+
+  ;
+
+  &.o-turn {
+    background-color: var(--color-o-turn);
+    box-shadow: 0 0 3px black inset;
+    /* transition: background-color 0.4s ease; */
+    animation: dropColor .5s ease-in
+  }
+
+  ;
+}
+
+@keyframes dropColor {
+  0% {
+    transform: translateY(-100vh);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
